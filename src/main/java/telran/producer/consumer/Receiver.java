@@ -1,16 +1,13 @@
 package telran.producer.consumer;
 
 public class Receiver extends Thread {
+    private int id;
     private MessageBox messageBox;
 
-    public Receiver(MessageBox messageBox) {
+    public Receiver(int id, MessageBox messageBox) {
+        this.id = id;
         this.messageBox = messageBox;
-        // FIXME update to USER Thread with some logic of finishing
         setDaemon(true);
-    }
-
-    public void setMessageBox(MessageBox messageBox) {
-        this.messageBox = messageBox;
     }
 
     @Override
@@ -18,9 +15,17 @@ public class Receiver extends Thread {
         while (true) {
             try {
                 String message = messageBox.take();
-                System.out.printf("Thread: %s, message: %s\n", getName(), message);
+                if (id % 2 == getMessageNumber(message) % 2) {
+                    System.out.printf("Thread: %s, message: %s\n", getName(), message);
+                } else {
+                    messageBox.put(message);
+                }
             } catch (InterruptedException ex) {
             }
         }
+    }
+
+    private static int getMessageNumber(String message) {
+        return Integer.parseInt(message.replaceAll("\\D+", ""));
     }
 }
