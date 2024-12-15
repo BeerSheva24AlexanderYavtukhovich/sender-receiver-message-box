@@ -10,7 +10,7 @@ public class Main {
         Sender sender = new Sender(N_MESSAGES, evenMessageBox, oddMessageBox);
 
         for (int i = 0; i < N_RECEIVERS; i++) {
-            new Receiver(i, (i % 2 == 0) ? evenMessageBox : oddMessageBox).start();
+            new Receiver((i % 2 == 0) ? oddMessageBox : evenMessageBox).start();
         }
 
         sender.start();
