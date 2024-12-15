@@ -23,7 +23,6 @@ public class Main {
 
         for (Receiver receiver : receivers) {
             receiver.interrupt();
-            receiver.join();
         }
     }
 }
