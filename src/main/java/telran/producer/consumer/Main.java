@@ -8,7 +8,7 @@ public class Main {
     private static final int N_RECEIVERS = 10;
 
     public static void main(String[] args) throws InterruptedException {
-        MessageBox messageBox = new SimpleMessageBox();
+        MessageBox messageBox = new ConditionsMessageBox();
         Sender sender = new Sender(N_MESSAGES, messageBox);
         List<Receiver> receivers = new ArrayList<>();
 
